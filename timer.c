@@ -3,8 +3,8 @@
 #include <stdio.h>
 #include <time.h>
 
-#define WIDTH 800
-#define HEIGHT 600
+#define WIDTH 400
+#define HEIGHT 300
 #define TOTAL_SECONDS 45 * 60 // 45 MIN
 
 SDL_Color textColor = {101, 67, 33, 255};
