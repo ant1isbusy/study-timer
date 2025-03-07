@@ -37,7 +37,7 @@ int main(int argc, char *argv[])
     SDL_Init(SDL_INIT_VIDEO | SDL_INIT_TIMER);
     TTF_Init();
 
-    SDL_Window *window = SDL_CreateWindow("Countdown Timer",
+    SDL_Window *window = SDL_CreateWindow("Study Timer",
                                           SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED,
                                           WIDTH, HEIGHT, 0);
 
@@ -52,6 +52,9 @@ int main(int argc, char *argv[])
     }
 
     Uint32 startTime = SDL_GetTicks();
+    int isPaused = 0;
+    Uint32 pausedElapsed = 0;
+
     int running = 1;
     SDL_Event event;
 
@@ -61,10 +64,34 @@ int main(int argc, char *argv[])
         {
             if (event.type == SDL_QUIT)
                 running = 0;
+            if (event.type == SDL_MOUSEBUTTONDOWN)
+            {
+                if (isPaused)
+                {
+                    // reset the time to what it was before pausing
+                    startTime = SDL_GetTicks() - pausedElapsed;
+                    isPaused = 0;
+                }
+                else
+                {
+                    pausedElapsed = SDL_GetTicks() - startTime;
+                    isPaused = 1;
+                }
+            }
         }
 
         Uint32 currentTime = SDL_GetTicks();
-        int elapsed = (currentTime - startTime) / 1000;
+        int elapsed;
+
+        if (isPaused)
+        {
+            elapsed = pausedElapsed / 1000; 
+        }
+        else
+        {
+            elapsed = (currentTime - startTime) / 1000;
+        }
+
         int remaining = TOTAL_SECONDS - elapsed;
 
         // Clear screen
