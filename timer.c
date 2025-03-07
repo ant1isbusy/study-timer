@@ -11,6 +11,31 @@ SDL_Color textColor = {101, 67, 33, 255};
 SDL_Color bgColor = {245, 245, 220, 255};
 SDL_Color alertColor = {255, 0, 0, 255};
 
+TTF_Font *load_font(const char *filename, int size)
+{
+    TTF_Font *font = TTF_OpenFont(filename, size);
+    if (font)
+    {
+        return font;
+    }
+
+    const char *home = getenv("HOME");
+    if (home)
+    {
+        char path[256];
+        snprintf(path, sizeof(path), "%s/.local/share/fonts/%s", home, filename);
+
+        font = TTF_OpenFont(path, size);
+        if (font)
+        {
+            return font;
+        }
+    }
+
+    printf("Error loading font: %s\n", TTF_GetError());
+    return NULL;
+}
+
 void render_time(SDL_Renderer *renderer, TTF_Font *font, int seconds)
 {
     char time_str[6];
@@ -47,8 +72,7 @@ int main(int argc, char *argv[])
     TTF_Font *font = TTF_OpenFont("JetBrainsMono-Medium.ttf", 100);
     if (!font)
     {
-        printf("Error loading font: %s\n", TTF_GetError());
-        return 1;
+        font = load_font("JetBrainsMono-Medium.ttf", 100);
     }
 
     Uint32 startTime = SDL_GetTicks();
@@ -85,7 +109,7 @@ int main(int argc, char *argv[])
 
         if (isPaused)
         {
-            elapsed = pausedElapsed / 1000; 
+            elapsed = pausedElapsed / 1000;
         }
         else
         {
