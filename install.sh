@@ -22,7 +22,7 @@ echo -e "\nInstalling the executable to $EXEC_PATH"
 sudo cp timer.out "$EXEC_PATH"
 sudo chmod +x "$EXEC_PATH"
 
-cat <<EOF | sudo tee "$DESKTOP_ENTRY" > /dev/null
+cat <<EOF | sudo tee "$DESKTOP_ENTRY" >/dev/null
 [Desktop Entry]
 Name=Timer
 Comment=ant1sbusy study timer

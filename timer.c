@@ -3,8 +3,9 @@
 #include <stdio.h>
 #include <time.h>
 
-#define WIDTH 400
-#define HEIGHT 300
+#define WIDTH 320
+#define HEIGHT 220
+#define FONT_SIZE 80
 #define TOTAL_SECONDS 45 * 60 // 45 MIN
 
 SDL_Color textColor = {101, 67, 33, 255};
@@ -69,10 +70,10 @@ int main(int argc, char *argv[])
     SDL_Renderer *renderer = SDL_CreateRenderer(window, -1,
                                                 SDL_RENDERER_ACCELERATED);
 
-    TTF_Font *font = TTF_OpenFont("JetBrainsMono-Medium.ttf", 100);
+    TTF_Font *font = TTF_OpenFont("JetBrainsMono-Medium.ttf", FONT_SIZE);
     if (!font)
     {
-        font = load_font("JetBrainsMono-Medium.ttf", 100);
+        font = load_font("JetBrainsMono-Medium.ttf", FONT_SIZE);
     }
 
     Uint32 startTime = SDL_GetTicks();
