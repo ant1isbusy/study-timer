@@ -1,7 +1,8 @@
 # study timer
 
 A small study timer window created with SDL2 in C, currently with a default time of 45 minutes.
-Clicking on the timer pauses it, clicking again continues the countdown. 
+Clicking on the timer pauses it, clicking again continues the countdown.
+
 The timer on the top left:
 ![Failed to load img](preview.png "Timer preview")
 
